@@ -262,12 +262,14 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 @media (min-width:900px){.trust{grid-template-columns:repeat(4,minmax(0,1fr))}.trust div,.trust div:nth-child(odd),.trust div:nth-child(even){padding:28px 24px;border-bottom:0;border-right:1px solid var(--line)}.trust div:first-child{padding-left:0}.trust div:last-child{border-right:0}}
 
 /* sobre */
-.about{position:relative;overflow:hidden;display:flex;align-items:flex-end;min-height:560px}
-.about img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;filter:grayscale(.7) brightness(.5)}
-.about::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 6%,rgba(8,9,10,.5) 60%,rgba(8,9,10,.3))}
-.about .wrap{position:relative;z-index:2;width:100%;padding-block:60px}
-.about h2{font-size:clamp(40px,7vw,76px);max-width:12ch}
-.about p{max-width:52ch;margin:18px 0 26px;color:var(--soft)}
+.about{border-top:1px solid var(--line)}
+.about-grid{display:grid;gap:32px;align-items:center}
+.about-img{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--panel);max-width:520px;width:100%}
+.about-img img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transition:transform .8s var(--ease)}
+.about-img:hover img{transform:scale(1.03)}
+.about h2{font-size:clamp(36px,5.6vw,64px);max-width:12ch}
+.about p{max-width:50ch;margin:18px 0 26px;color:var(--soft)}
+@media (min-width:900px){.about-grid{grid-template-columns:.9fr 1.1fr;gap:72px}}
 
 /* informações */
 .info{border-top:1px solid var(--line)}
@@ -487,7 +489,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     <div class="wrap">
       <div class="sec-head rv"><div><h2>Dicas de look</h2><p>A gente não só vende a peça. Mostra como usar.</p></div></div>
       <div class="tips">
-        <article class="tip rv"><div class="tip-img"><img src="img/nike-preta.jpg" alt="Look com camiseta preta, bermuda preta e tênis" loading="lazy" style="object-position:50% 45%"></div><div><h3>Tudo se complementa</h3><p>Sem peça estrela. Camiseta, bermuda e tênis na mesma linha deixam o look limpo.</p></div></article>
+        <article class="tip rv"><div class="tip-img"><img src="img/look-preto.jpg" alt="Look com camiseta preta, jeans escuro e tênis preto com sola branca" loading="lazy" style="object-position:50% 50%"></div><div><h3>Tudo se complementa</h3><p>Sem peça estrela. Camiseta preta, jeans escuro e tênis preto na mesma linha deixam o look limpo.</p></div></article>
         <article class="tip rv"><div class="tip-img"><img src="img/listrada-corpo.jpg" alt="Look com camiseta listrada, calça preta e tênis preto" loading="lazy" style="object-position:50% 40%"></div><div><h3>Uma peça estrela</h3><p>Uma peça chama atenção e o resto fica neutro. Aqui, a listrada manda.</p></div></article>
         <article class="tip rv"><div class="tip-img"><img src="img/couro.jpg" alt="Look com jaqueta de couro preta e jeans desbotado" loading="lazy" style="object-position:50% 30%"></div><div><h3>Duas em destaque</h3><p>Couro e jeans desbotado aparecem juntos sem brigar, com uma camiseta básica por baixo.</p></div></article>
       </div>
@@ -513,12 +515,14 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     </div>
   </section>
 
-  <section class="about" id="sobre">
-    <img src="img/evento-costas.jpg" alt="Cliente da LS de camiseta listrada olhando um palco iluminado à noite" loading="lazy">
-    <div class="wrap rv">
-      <h2>Mais que uma loja. É o seu estilo.</h2>
-      <p>A LS Imports nasceu para conectar estilo, personalidade e qualidade. Selecionamos peças para quem busca expressar sua identidade através da moda, valorizando cada detalhe e oferecendo uma experiência de compra próxima e confiável.</p>
-      <a class="btn btn-line" target="_blank" rel="noopener" data-wa="Olá, LS Imports! Vim pelo site e quero conhecer as peças." href="#">Fale com a LS</a>
+  <section class="sec about" id="sobre">
+    <div class="wrap about-grid">
+      <div class="about-img cut rv"><img src="img/trio.jpg" alt="Três clientes da LS Imports de jaqueta, moletom, jeans e tênis em uma escadaria à noite" loading="lazy"></div>
+      <div class="rv">
+        <h2>Mais que uma loja. É o seu estilo.</h2>
+        <p>A LS Imports nasceu para conectar estilo, personalidade e qualidade. Selecionamos peças para quem busca expressar sua identidade através da moda, valorizando cada detalhe e oferecendo uma experiência de compra próxima e confiável.</p>
+        <a class="btn btn-line" target="_blank" rel="noopener" data-wa="Olá, LS Imports! Vim pelo site e quero conhecer as peças." href="#">Fale com a LS</a>
+      </div>
     </div>
   </section>
 
