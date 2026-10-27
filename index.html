@@ -174,7 +174,7 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .card-media{position:relative;display:grid;place-items:center;aspect-ratio:4/5;width:100%;overflow:hidden;background:var(--panel);cursor:zoom-in}
 .card-media img{width:76%;height:82%;object-fit:contain;filter:drop-shadow(0 16px 18px rgba(0,0,0,.5));transition:transform .6s var(--ease)}
 .card-media.light{background:#ededed}
-.card-media.light img{width:90%;height:90%;filter:none}
+.card-media.light img{width:100%;height:100%;object-fit:cover;filter:none}
 .card:hover .card-media img{transform:translateY(-6px) scale(1.03)}
 .tag{position:absolute;top:10px;left:10px;z-index:2;padding:4px 8px;font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bg)}
 .tag.pre{background:var(--accent);color:var(--accent-ink)}
@@ -313,6 +313,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 .bag-thumb{width:60px;height:72px;display:grid;place-items:center;background:var(--panel)}
 .bag-thumb.light{background:#ededed}
 .bag-thumb img{max-width:52px;max-height:64px}
+.bag-thumb.light{overflow:hidden}
+.bag-thumb.light img{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
 .bag-list strong{display:block;font:600 14px/1.35 var(--body)}
 .bag-list small{color:var(--muted);font-size:13px}
 .qty{display:flex;align-items:center;border:1px solid var(--line-2);margin-top:8px;width:max-content}
@@ -326,11 +328,11 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 .total strong{font:800 30px var(--display);font-variant-numeric:tabular-nums}
 .bag-foot small{color:var(--muted);text-align:center;font-size:12px}
 .modal{position:fixed;z-index:80;inset:0;display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) var(--gr) calc(16px + env(safe-area-inset-bottom,0px)) var(--gl);pointer-events:none}
-.modal-box{pointer-events:auto;width:min(880px,100%);max-height:100%;overflow-y:auto;background:var(--bg);border:1px solid var(--line);display:grid;animation:fade-up .35s var(--ease)}
-.modal-media{display:grid;place-items:center;aspect-ratio:1/1;background:var(--panel)}
+.modal-box{pointer-events:auto;width:min(880px,100%);max-height:100%;overflow-y:auto;background:var(--bg);border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr);animation:fade-up .35s var(--ease)}
+.modal-media{display:grid;place-items:center;aspect-ratio:1/1;background:var(--panel);min-width:0;overflow:hidden}
 .modal-media.light{background:#ededed}
 .modal-media img{width:78%;height:82%;object-fit:contain}
-.modal-media.light img{width:88%;height:88%}
+.modal-media.light img{width:100%;height:100%;object-fit:contain}
 .modal-body{position:relative;padding:24px 20px 26px;display:grid;gap:8px;align-content:start}
 .modal-body h3{font-size:clamp(30px,4vw,40px);padding-right:40px}
 .modal-close{position:absolute;top:10px;right:10px}
@@ -339,7 +341,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 .modal-body li{display:flex;gap:10px}
 .modal-body li::before{content:"";width:5px;height:5px;margin-top:9px;flex:none;background:var(--accent)}
 .modal-actions{display:grid;gap:10px}
-@media (min-width:760px){.modal-box{grid-template-columns:1fr 1fr}.modal-media{aspect-ratio:auto;min-height:460px}.modal-body{padding:44px 32px}}
+@media (min-width:760px){.modal-box{grid-template-columns:repeat(2,minmax(0,1fr))}.modal-media{aspect-ratio:auto;min-height:460px}.modal-body{padding:44px 32px}}
 
 .toast{position:fixed;z-index:90;left:0;right:0;margin:0 auto;width:max-content;top:calc(76px + env(safe-area-inset-top,0px));max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;padding:12px 18px;background:var(--fg);color:var(--bg);font:600 14px var(--body);white-space:nowrap;animation:fade-up .3s var(--ease)}
 
@@ -602,12 +604,12 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   // Catálogo. price = valor no Pix. compare = preço "de" (só quando a oferta é real). card = valor no cartão, quando for diferente do Pix. soldout: true mostra "Esgotado".
   // Para adicionar uma peça nova, copie uma linha e troque os dados e a foto.
   const PRODUCTS = [
-    {id:"lacoste-jaqueta", name:"Jaqueta Lacoste preta", brand:"Lacoste", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/lacoste.webp"},
-    {id:"tommy-qz-preto", name:"Quarter zip Tommy preto", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-preto.webp"},
-    {id:"tommy-qz-off", name:"Quarter zip Tommy off white", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-off.webp"},
-    {id:"xo-preta", name:"Calça jeans XO preta", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-preto.webp"},
-    {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.webp"},
-    {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.webp"},
+    {id:"lacoste-jaqueta", name:"Jaqueta Lacoste preta", brand:"Lacoste", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/lacoste.jpg", light:true},
+    {id:"tommy-qz-preto", name:"Quarter zip Tommy preto", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-preto.jpg", light:true},
+    {id:"tommy-qz-off", name:"Quarter zip Tommy off white", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-off.jpg", light:true},
+    {id:"xo-preta", name:"Calça jeans XO preta", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-preto.jpg", light:true},
+    {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.jpg", light:true},
+    {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
     {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:69.90, img:"img/listrada-preta.jpg", light:true, pre:true},
     {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:69.90, img:"img/listrada-azul.jpg", light:true, pre:true}
   ];
