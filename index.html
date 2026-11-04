@@ -179,6 +179,15 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .tag{position:absolute;top:10px;left:10px;z-index:2;padding:4px 8px;font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bg)}
 .tag.pre{background:var(--accent);color:var(--accent-ink)}
 .tag.out{background:var(--line-2);color:var(--soft)}
+.peek{position:absolute;left:10px;bottom:10px;z-index:2;width:30%;aspect-ratio:4/5;padding:0;border:2px solid #fff;background:#111;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+.card-media.light .peek img,.peek img{width:100%;height:100%;object-fit:cover;filter:none;transform:none}
+.peek span{position:absolute;left:0;right:0;bottom:0;padding:2px 0;font:700 9px var(--body);letter-spacing:.08em;text-transform:uppercase;text-align:center;color:#fff;background:rgba(0,0,0,.65)}
+.thumbs{display:flex;gap:8px;padding:10px 12px 0}
+.thumbs button{width:56px;aspect-ratio:4/5;padding:0;border:1px solid var(--line);background:#ededed;cursor:pointer;opacity:.6}
+.thumbs button[aria-pressed="true"]{opacity:1;border-color:var(--accent)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-media.photo{background:#0b0b0b}
+.modal-media.photo img{width:100%;height:100%;object-fit:contain}
 .card.soldout .card-media img{filter:grayscale(1) brightness(.55)}
 .quick{position:absolute;right:10px;bottom:10px;z-index:2;width:42px;height:42px;display:grid;place-items:center;background:var(--bg);color:var(--fg);border:1px solid var(--line-2);transition:background .2s,color .2s}
 .quick svg{width:19px;height:19px}
@@ -211,6 +220,7 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .drop-cards figure{position:relative;margin:0;aspect-ratio:4/5;display:grid;place-items:center;background:#ededed}
 .drop-cards img{width:90%;height:90%;object-fit:contain}
 .drop-cards .photo img{width:100%;height:100%;object-fit:cover}
+.drop-cards .peek img{width:100%;height:100%;object-fit:cover}
 .drop-cards figcaption{position:absolute;left:10px;bottom:10px;padding:4px 8px;background:var(--bg);font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase}
 .drop-price{display:flex;align-items:baseline;gap:10px;margin:18px 0 6px}
 .drop-price strong{font:800 44px/1 var(--display);color:var(--accent)}
@@ -456,7 +466,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     <div class="wrap drop">
       <div class="drop-cards rv">
         <figure><img src="img/listrada-preta.jpg" alt="Camiseta listrada preta e branca" loading="lazy"><figcaption>Preta</figcaption></figure>
-        <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada azul e branca" loading="lazy"><figcaption>Azul</figcaption></figure>
+        <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada azul e branca" loading="lazy"><figcaption>Azul</figcaption><button class="peek" style="left:auto;right:8px;bottom:8px;width:34%" data-open-product="listrada-azul" data-pic="1" aria-label="Ver a listrada azul vestida"><img src="img/listrada-azul-vestida.jpg" alt="" loading="lazy"><span>Vestida</span></button></figure>
         <figure class="photo"><img src="img/basica-branca.jpg" alt="Camiseta básica branca vestida" loading="lazy"><figcaption>Branca</figcaption></figure>
         <figure class="photo"><img src="img/basica-preta.jpg" alt="Camiseta básica preta vestida" loading="lazy"><figcaption>Preta</figcaption></figure>
       </div>
@@ -583,7 +593,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mName">
   <div class="modal-box">
-    <div class="modal-media" id="mMedia"><img id="mImg" src="img/logo.png" alt=""></div>
+    <div><div class="modal-media" id="mMedia"><img id="mImg" src="img/logo.png" alt=""></div><div class="thumbs" id="mThumbs" hidden></div></div>
     <div class="modal-body">
       <button class="icon-btn modal-close" id="closeModal" aria-label="Fechar produto"><svg><use href="#i-close"/></svg></button>
       <span class="card-brand" id="mBrand"></span>
@@ -614,7 +624,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.jpg", light:true},
     {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
     {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-preta.jpg", light:true},
-    {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-azul.jpg", light:true},
+    {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-azul.jpg", light:true, more:["img/listrada-azul-vestida.jpg"]},
     {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
     {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true}
   ];
@@ -676,6 +686,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     return `<article class="card${p.soldout?" soldout":""}">
       <div class="card-media cut${p.light?" light":""}" data-open-product="${p.id}" role="button" tabindex="0" aria-label="Ver ${esc(p.name)}">${tagOf(p)}
         <img src="${p.img}" alt="${esc(p.name)}" loading="lazy">
+        ${p.more?`<button class="peek" data-open-product="${p.id}" data-pic="1" aria-label="Ver ${esc(p.name)} vestida"><img src="${p.more[0]}" alt="" loading="lazy"><span>Vestida</span></button>`:""}
         <button class="quick" data-add="${p.id}" aria-label="Adicionar ${esc(p.name)} à sacola" ${p.soldout?"disabled":""}><svg><use href="#i-add"/></svg></button>
       </div>
       <div class="card-body"><span class="card-brand">${esc(p.brand)}</span><h3 class="card-name"><button data-open-product="${p.id}">${esc(p.name)}</button></h3>${priceOf(p)}</div>
@@ -719,10 +730,16 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   let lastFocus = null;
   function openLayer(el){ $("toast").hidden = true; lastFocus = document.activeElement; el.hidden = false; $("scrim").hidden = false; document.body.classList.add("lock"); const f = el.querySelector("button,a"); if(f) f.focus(); }
   function closeLayers(){ ["drawer","modal"].forEach(id=>$(id).hidden = true); $("scrim").hidden = true; document.body.classList.remove("lock"); if(lastFocus && lastFocus.focus) lastFocus.focus(); }
-  function openProduct(id){
+  function showPic(p,i){
+    const pics=[p.img,...(p.more||[])];
+    $("mMedia").className = "modal-media"+(i>0?" photo":(p.light?" light":""));
+    $("mImg").src = pics[i]; $("mImg").alt = p.name+(i>0?" vestida":"");
+    $("mThumbs").hidden = pics.length<2;
+    $("mThumbs").innerHTML = pics.length<2?"":pics.map((src,k)=>`<button data-pic-of="${p.id}" data-pic-i="${k}" aria-pressed="${k===i}" aria-label="Foto ${k+1}"><img src="${src}" alt=""></button>`).join("");
+  }
+  function openProduct(id,pic){
     const p = byId(id); if(!p) return;
-    $("mMedia").className = "modal-media"+(p.light?" light":"");
-    $("mImg").src = p.img; $("mImg").alt = p.name;
+    showPic(p,pic||0);
     $("mBrand").textContent = p.brand; $("mName").textContent = p.name;
     $("mPrice").innerHTML = `<strong>${brl(p.price)}</strong>${p.compare?`<s>${brl(p.compare)}</s>`:""}`;
     const info = [p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega", p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", "Tamanho e caimento: a gente indica no WhatsApp"];
@@ -741,7 +758,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
   // eventos
   document.addEventListener("click", e=>{
-    const t = e.target.closest("[data-filter],[data-add],[data-inc],[data-dec],[data-cat],[data-filter-link],[data-open],[data-open-product]");
+    const t = e.target.closest("[data-filter],[data-add],[data-inc],[data-dec],[data-cat],[data-filter-link],[data-open],[data-open-product],[data-pic-of]");
     if(!t) return;
     if(t.dataset.add){ e.stopPropagation(); addToBag(t.dataset.add); return; }
     if(t.dataset.filter){ setFilter(t.dataset.filter); return; }
@@ -749,7 +766,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     if(t.dataset.dec){ const id=t.dataset.dec; state.bag[id]=(state.bag[id]||0)-1; if(state.bag[id]<=0) delete state.bag[id]; saveBag(); renderBag(); return; }
     if(t.dataset.cat){ state.q=""; $("q").value=""; setFilter(t.dataset.cat); goShop(); return; }
     if(t.dataset.filterLink){ e.preventDefault(); closeMenu(); state.q=""; $("q").value=""; setFilter(t.dataset.filterLink); goShop(); return; }
-    if(t.dataset.openProduct){ openProduct(t.dataset.openProduct); return; }
+    if(t.dataset.picOf){ showPic(byId(t.dataset.picOf),+t.dataset.picI); return; }
+    if(t.dataset.openProduct){ openProduct(t.dataset.openProduct, +(t.dataset.pic||0)); return; }
     if(t.hasAttribute("data-open")){ const d = document.querySelector(t.getAttribute("href")); if(d) d.open = true; }
   });
   document.addEventListener("keydown", e=>{
