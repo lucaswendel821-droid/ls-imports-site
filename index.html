@@ -210,6 +210,7 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .drop-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .drop-cards figure{position:relative;margin:0;aspect-ratio:4/5;display:grid;place-items:center;background:#ededed}
 .drop-cards img{width:90%;height:90%;object-fit:contain}
+.drop-cards .photo img{width:100%;height:100%;object-fit:cover}
 .drop-cards figcaption{position:absolute;left:10px;bottom:10px;padding:4px 8px;background:var(--bg);font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase}
 .drop-price{display:flex;align-items:baseline;gap:10px;margin:18px 0 6px}
 .drop-price strong{font:800 44px/1 var(--display);color:var(--accent)}
@@ -456,16 +457,18 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
       <div class="drop-cards rv">
         <figure><img src="img/listrada-preta.jpg" alt="Camiseta listrada preta e branca" loading="lazy"><figcaption>Preta</figcaption></figure>
         <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada azul e branca" loading="lazy"><figcaption>Azul</figcaption></figure>
+        <figure class="photo"><img src="img/basica-branca.jpg" alt="Camiseta básica branca vestida" loading="lazy"><figcaption>Branca</figcaption></figure>
+        <figure class="photo"><img src="img/basica-preta.jpg" alt="Camiseta básica preta vestida" loading="lazy"><figcaption>Preta</figcaption></figure>
       </div>
       <div class="rv">
-        <h2>Pré-venda: camisetas listradas</h2>
-        <div class="drop-price"><strong>R$ 69,90</strong><span class="label">na pré-venda</span></div>
+        <h2>Camisetas listradas e básicas</h2>
+        <div class="drop-price"><strong>R$ 89,90</strong><span class="label">cada, no Pix</span></div>
         <ol class="steps">
-          <li>Entre na lista VIP pelo WhatsApp.</li>
-          <li>Escolha a cor e passe sua numeração.</li>
-          <li>Garanta a sua antes de abrir pra todo mundo.</li>
+          <li>Escolha: listrada preta, listrada azul, básica branca ou básica preta.</li>
+          <li>Passe seu tamanho no WhatsApp.</li>
+          <li>A gente separa a sua e combina a entrega.</li>
         </ol>
-        <a class="btn btn-primary" target="_blank" rel="noopener" id="vipBtn" href="#"><svg><use href="#i-wa"/></svg> Garantir a minha</a>
+        <a class="btn btn-primary" target="_blank" rel="noopener" id="vipBtn" href="#"><svg><use href="#i-wa"/></svg> Quero a minha</a>
       </div>
     </div>
   </section>
@@ -549,7 +552,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
         <a class="brand" href="#inicio"><img src="img/logo.png" alt=""><span>LS IMPORTS</span></a>
         <p style="color:var(--muted);max-width:30ch;margin:16px 0 0;font-size:15px">Moda masculina de grife em Andirá-PR, com envio para todo o Brasil.</p>
       </div>
-      <div><h4>Loja</h4><ul><li><a href="#loja">Todos os produtos</a></li><li><a href="#novidades">Pré-venda</a></li><li><a href="#loja" data-filter-link="ofertas">Ofertas</a></li><li><a href="#encomenda">Tênis sob encomenda</a></li><li><a href="#dicas">Dicas de look</a></li></ul></div>
+      <div><h4>Loja</h4><ul><li><a href="#loja">Todos os produtos</a></li><li><a href="#novidades">Novidades</a></li><li><a href="#loja" data-filter-link="ofertas">Ofertas</a></li><li><a href="#encomenda">Tênis sob encomenda</a></li><li><a href="#dicas">Dicas de look</a></li></ul></div>
       <div><h4>Ajuda</h4><ul><li><a href="#info-pagamento" data-open>Pagamento</a></li><li><a href="#info-entrega" data-open>Entrega e retirada</a></li><li><a href="#info-devolucao" data-open>Devoluções</a></li><li><a href="#info-tamanho" data-open>Tamanhos</a></li><li><a href="#sobre">Sobre a LS</a></li></ul></div>
       <div>
         <h4>Atendimento</h4>
@@ -610,8 +613,10 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     {id:"xo-preta", name:"Calça jeans XO preta", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-preto.jpg", light:true},
     {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.jpg", light:true},
     {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
-    {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:69.90, img:"img/listrada-preta.jpg", light:true, pre:true},
-    {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:69.90, img:"img/listrada-azul.jpg", light:true, pre:true}
+    {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-preta.jpg", light:true},
+    {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-azul.jpg", light:true},
+    {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
+    {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true}
   ];
   const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças"};
   const BRANDS = [...new Set(PRODUCTS.map(p=>p.brand))];
@@ -625,7 +630,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
   // links de WhatsApp fixos
   document.querySelectorAll("[data-wa]").forEach(a=>a.href = wa(a.dataset.wa));
-  $("vipBtn").href = wa("Olá, LS Imports! Quero garantir a camiseta listrada na pré-venda por R$ 69,90. Cor: ___ Tamanho: ___");
+  $("vipBtn").href = wa("Olá, LS Imports! Quero uma camiseta de R$ 89,90. Modelo (listrada preta, listrada azul, básica branca ou básica preta): ___ Tamanho: ___");
   $("orderBtn").href = wa("Olá, LS Imports! Quero encomendar um tênis. Modelo: ___ Numeração: ___");
 
   // sacola salva só neste navegador
@@ -634,7 +639,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
   // filtros e busca
   function filterOptions(){
-    return [["todas","Todas"],["ofertas","Ofertas"],["pre","Pré-venda"],...Object.entries(CATS),...BRANDS.map(b=>["brand:"+b,b])];
+    return [["todas","Todas"],["ofertas","Ofertas"],...(PRODUCTS.some(p=>p.pre)?[["pre","Pré-venda"]]:[]),...Object.entries(CATS),...BRANDS.map(b=>["brand:"+b,b])];
   }
   function renderFilters(){
     $("filters").innerHTML = filterOptions().map(([v,l])=>`<button class="chip" data-filter="${esc(v)}" aria-pressed="${state.filter===v}">${esc(l)}</button>`).join("");
