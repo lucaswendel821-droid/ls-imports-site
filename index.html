@@ -150,6 +150,8 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .cat-name{position:absolute;z-index:2;left:14px;right:14px;bottom:14px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;font:800 clamp(20px,3vw,26px)/1 var(--display);text-transform:uppercase}
 .cat-name small{font:500 12px var(--body);text-transform:none;color:var(--soft);white-space:nowrap}
 .cat:hover img{transform:scale(1.05)}
+.cat.duo{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.cat.duo img{min-width:0}
 .cat.soon{grid-column:1/-1;aspect-ratio:auto;min-height:96px;background:var(--bg-2);border:1px solid var(--line);cursor:default}
 .cat.soon::after{display:none}
 .cat.soon .cat-name{top:0;bottom:0;justify-content:center}
@@ -433,7 +435,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     <div class="wrap">
       <div class="sec-head rv"><h2>Categorias</h2></div>
       <div class="cats">
-        <button class="cat rv" data-cat="camisetas"><img src="img/listrada-corpo.jpg" alt="Camiseta listrada preta e branca vestida" style="object-position:50% 35%"><span class="cat-name">Camisetas<br>e blusas</span></button>
+        <button class="cat duo rv" data-cat="camisetas"><img src="img/listrada-corpo.jpg" alt="Camiseta listrada preta e branca vestida" style="object-position:50% 35%"><img src="img/listrada-azul-corpo.jpg" alt="Camiseta listrada azul e branca vestida" style="object-position:50% 30%"><span class="cat-name">Camisetas<br>e blusas</span></button>
         <button class="cat rv" data-cat="moletons"><img src="img/trio-sentados.jpg" alt="Três amigos sentados na escada de jaqueta puffer, jaqueta de couro e moletom" style="object-position:30% 55%"><span class="cat-name">Moletons<br>e jaquetas</span></button>
         <button class="cat rv" data-cat="calcas"><img src="img/couro.jpg" alt="Calça jeans destroyed vestida" style="object-position:50% 88%"><span class="cat-name">Calças<br>e bermudas</span></button>
         <a class="cat rv" href="#encomenda"><img src="img/tenis-court-azul.jpg" alt="Par de tênis azul bebê com sola branca alta" style="object-position:50% 50%"><span class="cat-name">Tênis<small>Sob encomenda</small></span></a>
