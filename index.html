@@ -457,20 +457,20 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   <section class="sec" id="novidades">
     <div class="wrap drop">
       <div class="drop-cards rv">
-        <figure><img src="img/listrada-preta.jpg" alt="Camiseta listrada preta e branca" loading="lazy"><figcaption>Preta</figcaption></figure>
-        <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada azul e branca" loading="lazy"><figcaption>Azul</figcaption></figure>
-        <figure class="photo"><img src="img/basica-branca.jpg" alt="Camiseta básica branca vestida" loading="lazy"><figcaption>Branca</figcaption></figure>
-        <figure class="photo"><img src="img/basica-preta.jpg" alt="Camiseta básica preta vestida" loading="lazy"><figcaption>Preta</figcaption></figure>
+        <figure><img src="img/listrada-vermelha.jpg" alt="Camiseta listrada branca com vermelho" loading="lazy"><figcaption>Vermelha</figcaption></figure>
+        <figure><img src="img/listrada-royal.jpg" alt="Camiseta listrada branca com azul royal" loading="lazy"><figcaption>Azul royal</figcaption></figure>
+        <figure><img src="img/listrada-marinho.jpg" alt="Camiseta listrada branca e azul marinho" loading="lazy"><figcaption>Azul marinho</figcaption></figure>
+        <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada branca com azul claro" loading="lazy"><figcaption>Azul claro</figcaption></figure>
       </div>
       <div class="rv">
-        <h2>Camisetas listradas e básicas</h2>
-        <div class="drop-price"><strong>R$ 89,90</strong><span class="label">cada, no Pix</span></div>
+        <h2>Pré-venda: listradas Celani</h2>
+        <div class="drop-price"><strong>R$ 79,90</strong><span class="label">na pré-venda · depois R$ 89,90</span></div>
         <ol class="steps">
-          <li>Escolha: listrada preta, listrada azul, básica branca ou básica preta.</li>
-          <li>Passe seu tamanho no WhatsApp.</li>
-          <li>A gente separa a sua e combina a entrega.</li>
+          <li>Escolha a cor: vermelho, azul royal, azul marinho ou azul claro.</li>
+          <li>Passe seu tamanho no WhatsApp (P, M, G ou GG).</li>
+          <li>Garanta a sua antes de chegar, no preço de pré-venda.</li>
         </ol>
-        <a class="btn btn-primary" target="_blank" rel="noopener" id="vipBtn" href="#"><svg><use href="#i-wa"/></svg> Quero a minha</a>
+        <a class="btn btn-primary" target="_blank" rel="noopener" id="vipBtn" href="#"><svg><use href="#i-wa"/></svg> Garantir a minha</a>
       </div>
     </div>
   </section>
@@ -616,7 +616,10 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.jpg", light:true},
     {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
     {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-preta.jpg", light:true},
-    {id:"listrada-azul", name:"Camiseta listrada azul e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-azul.jpg", light:true},
+    {id:"listrada-azul", name:"Camiseta listrada branca com azul claro", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-azul.jpg", light:true, pre:true},
+    {id:"listrada-vermelha", name:"Camiseta listrada branca com vermelho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-vermelha.jpg", light:true, pre:true},
+    {id:"listrada-royal", name:"Camiseta listrada branca com azul royal", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-royal.jpg", light:true, pre:true},
+    {id:"listrada-marinho", name:"Camiseta listrada branca e azul marinho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-marinho.jpg", light:true, pre:true},
     {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
     {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true}
   ];
@@ -632,7 +635,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
   // links de WhatsApp fixos
   document.querySelectorAll("[data-wa]").forEach(a=>a.href = wa(a.dataset.wa));
-  $("vipBtn").href = wa("Olá, LS Imports! Quero uma camiseta de R$ 89,90. Modelo (listrada preta, listrada azul, básica branca ou básica preta): ___ Tamanho: ___");
+  $("vipBtn").href = wa("Olá, LS Imports! Quero garantir uma camiseta listrada Celani na pré-venda por R$ 79,90. Cor (vermelho, azul royal, azul marinho ou azul claro): ___ Tamanho: ___");
   $("orderBtn").href = wa("Olá, LS Imports! Quero encomendar um tênis. Modelo: ___ Numeração: ___");
 
   // sacola salva só neste navegador
