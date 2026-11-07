@@ -181,6 +181,7 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .tag{position:absolute;top:10px;left:10px;z-index:2;padding:4px 8px;font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bg)}
 .tag.pre{background:var(--accent);color:var(--accent-ink)}
 .tag.out{background:var(--line-2);color:var(--soft)}
+.tag.natal{background:#c8102e;color:#fff;letter-spacing:.07em}
 .card.soldout .card-media img{filter:grayscale(1) brightness(.55)}
 .quick{position:absolute;right:10px;bottom:10px;z-index:2;width:42px;height:42px;display:grid;place-items:center;background:var(--bg);color:var(--fg);border:1px solid var(--line-2);transition:background .2s,color .2s}
 .quick svg{width:19px;height:19px}
@@ -457,7 +458,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   <section class="sec" id="novidades">
     <div class="wrap drop">
       <div class="drop-cards rv">
-        <figure><img src="img/listrada-vermelha.jpg" alt="Camiseta listrada branca com vermelho" loading="lazy"><figcaption>Vermelha</figcaption></figure>
+        <figure><img src="img/listrada-vermelha.jpg" alt="Camiseta listrada branca com vermelho" loading="lazy"><figcaption>Vermelha 🎄</figcaption></figure>
+        <figure><img src="img/lisa-vermelha.jpg" alt="Camiseta vermelha lisa" loading="lazy"><figcaption>Vermelha lisa 🎄</figcaption></figure>
         <figure><img src="img/listrada-royal.jpg" alt="Camiseta listrada branca com azul royal" loading="lazy"><figcaption>Azul royal</figcaption></figure>
         <figure><img src="img/listrada-marinho.jpg" alt="Camiseta listrada branca e azul marinho" loading="lazy"><figcaption>Azul marinho</figcaption></figure>
         <figure><img src="img/listrada-azul.jpg" alt="Camiseta listrada branca com azul claro" loading="lazy"><figcaption>Azul claro</figcaption></figure>
@@ -466,7 +468,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
         <h2>Pré-venda: listradas Celani</h2>
         <div class="drop-price"><strong>R$ 79,90</strong><span class="label">na pré-venda · depois R$ 89,90</span></div>
         <ol class="steps">
-          <li>Escolha a cor: vermelho, azul royal, azul marinho ou azul claro.</li>
+          <li>Escolha a cor: vermelho listrado, vermelho liso, azul royal, azul marinho ou azul claro.</li>
           <li>Passe seu tamanho no WhatsApp (P, M, G ou GG).</li>
           <li>Garanta a sua antes de chegar, no preço de pré-venda.</li>
         </ol>
@@ -617,7 +619,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
     {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-preta.jpg", light:true},
     {id:"listrada-azul", name:"Camiseta listrada branca com azul claro", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-azul.jpg", light:true, pre:true},
-    {id:"listrada-vermelha", name:"Camiseta listrada branca com vermelho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-vermelha.jpg", light:true, pre:true},
+    {id:"listrada-vermelha", name:"Camiseta listrada branca com vermelho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-vermelha.jpg", light:true, pre:true, natal:true},
+    {id:"lisa-vermelha", name:"Camiseta vermelha lisa", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/lisa-vermelha.jpg", light:true, pre:true, natal:true},
     {id:"listrada-royal", name:"Camiseta listrada branca com azul royal", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-royal.jpg", light:true, pre:true},
     {id:"listrada-marinho", name:"Camiseta listrada branca e azul marinho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-marinho.jpg", light:true, pre:true},
     {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
@@ -635,7 +638,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
   // links de WhatsApp fixos
   document.querySelectorAll("[data-wa]").forEach(a=>a.href = wa(a.dataset.wa));
-  $("vipBtn").href = wa("Olá, LS Imports! Quero garantir uma camiseta listrada Celani na pré-venda por R$ 79,90. Cor (vermelho, azul royal, azul marinho ou azul claro): ___ Tamanho: ___");
+  $("vipBtn").href = wa("Olá, LS Imports! Quero garantir uma camiseta Celani na pré-venda por R$ 79,90. Cor (vermelho listrado, vermelho liso, azul royal, azul marinho ou azul claro): ___ Tamanho: ___");
   $("orderBtn").href = wa("Olá, LS Imports! Quero encomendar um tênis. Modelo: ___ Numeração: ___");
 
   // sacola salva só neste navegador
@@ -664,6 +667,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   }
   function tagOf(p){
     if(p.soldout) return '<span class="tag out">Esgotado</span>';
+    if(p.natal) return '<span class="tag natal">🎄 Natal · Pré-venda</span>';
     if(p.pre) return '<span class="tag pre">Pré-venda</span>';
     if(p.compare) return '<span class="tag">Promoção</span>';
     return "";
@@ -730,7 +734,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     $("mImg").src = p.img; $("mImg").alt = p.name;
     $("mBrand").textContent = p.brand; $("mName").textContent = p.name;
     $("mPrice").innerHTML = `<strong>${brl(p.price)}</strong>${p.compare?`<s>${brl(p.compare)}</s>`:""}`;
-    const info = [p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega", p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", "Tamanho e caimento: a gente indica no WhatsApp"];
+    const info = [p.natal?"Coleção de Natal · pré-venda, garanta a sua antes da chegada":(p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega"), p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", "Tamanho e caimento: a gente indica no WhatsApp"];
     $("mInfo").innerHTML = info.map(t=>`<li>${esc(t)}</li>`).join("");
     $("mAdd").dataset.id = p.id; $("mAdd").disabled = !!p.soldout;
     $("mWa").href = wa(`Olá, LS Imports! Quero a ${p.name} (${brl(p.price)}). Tem no meu tamanho?`);
