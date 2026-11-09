@@ -164,8 +164,8 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
     try{
       const t = await fetch("/api/estoque", {
         method:"POST",
-        headers:{"Content-Type":"application/json","X-Painel-Pin":PIN},
-        body: JSON.stringify(estado)
+        headers:{"Content-Type":"application/json","X-Painel-Pin":PIN,"X-Painel-Verificar":"1"},
+        body: "{}"
       });
       if(t.status === 401){
         $("btnEntrar").disabled = false;

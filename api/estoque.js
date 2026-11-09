@@ -1,13 +1,20 @@
-import { put, list } from "@vercel/blob";
+import { put, list, del } from "@vercel/blob";
 
-const ARQ = "estoque.json";
+const PREFIXO = "estoque-";
 
-// Lê o estado atual direto do Blob. Devolve {} enquanto ninguém salvou nada.
+// Cada salvamento grava um arquivo com nome novo. Assim o CDN nunca devolve
+// versão velha: a URL muda a cada save. Os antigos são apagados em seguida.
+async function maisNovo() {
+  const { blobs } = await list({ prefix: PREFIXO });
+  if (!blobs.length) return null;
+  return blobs.slice().sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+}
+
 async function ler() {
   try {
-    const { blobs } = await list({ prefix: ARQ, limit: 1 });
-    if (!blobs.length) return {};
-    const r = await fetch(blobs[0].url + "?v=" + Date.now(), { cache: "no-store" });
+    const ordenados = await maisNovo();
+    if (!ordenados) return {};
+    const r = await fetch(ordenados[0].url, { cache: "no-store" });
     if (!r.ok) return {};
     const j = await r.json();
     return j && typeof j === "object" ? j : {};
@@ -16,7 +23,6 @@ async function ler() {
   }
 }
 
-// Só deixa passar o que o site entende, com os tipos certos.
 const TAMANHOS = ["P", "M", "G", "GG"];
 function limpar(entrada) {
   const saida = {};
@@ -39,6 +45,15 @@ function limpar(entrada) {
   return saida;
 }
 
+function pinConfere(enviado, pin) {
+  let dif = enviado.length === pin.length ? 0 : 1;
+  const n = Math.max(enviado.length, pin.length);
+  for (let i = 0; i < n; i++) {
+    dif |= (enviado.charCodeAt(i) || 0) ^ (pin.charCodeAt(i) || 0);
+  }
+  return dif === 0;
+}
+
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");
 
@@ -50,28 +65,29 @@ export default async function handler(req, res) {
     const pin = process.env.PAINEL_PIN;
     if (!pin) return res.status(500).json({ erro: "PIN não configurado" });
 
-    const enviado = String(req.headers["x-painel-pin"] || "");
-    // comparação de tempo constante, pra não dar pra adivinhar o PIN pelo tempo de resposta
-    let dif = enviado.length === pin.length ? 0 : 1;
-    for (let i = 0; i < Math.max(enviado.length, pin.length); i++) {
-      dif |= (enviado.charCodeAt(i) || 0) ^ (pin.charCodeAt(i) || 0);
-    }
-    if (dif !== 0) {
+    if (!pinConfere(String(req.headers["x-painel-pin"] || ""), pin)) {
       await new Promise(r => setTimeout(r, 700));
       return res.status(401).json({ erro: "PIN incorreto" });
+    }
+
+    // o painel usa isto só pra conferir o PIN na entrada, sem gravar nada
+    if (req.headers["x-painel-verificar"] === "1") {
+      return res.status(200).json({ ok: true });
     }
 
     let corpo = req.body;
     if (typeof corpo === "string") { try { corpo = JSON.parse(corpo); } catch { corpo = null; } }
     const dados = limpar(corpo);
 
-    await put(ARQ, JSON.stringify(dados), {
+    const antigos = (await maisNovo()) || [];
+    await put(`${PREFIXO}${Date.now()}.json`, JSON.stringify(dados), {
       access: "public",
       contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0
+      addRandomSuffix: true
     });
+
+    // limpa as versões anteriores, sem derrubar o salvamento se falhar
+    try { if (antigos.length) await del(antigos.map(b => b.url)); } catch {}
 
     return res.status(200).json({ ok: true, itens: Object.keys(dados).length });
   }
