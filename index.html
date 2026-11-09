@@ -604,28 +604,46 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
 
 <div class="toast" id="toast" hidden role="status"></div>
 
+<script src="catalogo.js"></script>
 <script>
 (function(){
   document.documentElement.classList.add("js");
   const WA = "5543988743499";
   // Catálogo. price = valor no Pix. compare = preço "de" (só quando a oferta é real). card = valor no cartão, quando for diferente do Pix. soldout: true mostra "Esgotado".
   // Para adicionar uma peça nova, copie uma linha e troque os dados e a foto.
-  const PRODUCTS = [
-    {id:"lacoste-jaqueta", name:"Jaqueta Lacoste preta", brand:"Lacoste", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/lacoste.jpg", light:true},
-    {id:"tommy-qz-preto", name:"Quarter zip Tommy preto", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-preto.jpg", light:true},
-    {id:"tommy-qz-off", name:"Quarter zip Tommy off white", brand:"Tommy Hilfiger", cat:"moletons", price:159.90, compare:199.00, card:199.00, img:"img/tommy-off.jpg", light:true},
-    {id:"xo-preta", name:"Calça jeans XO preta", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-preto.jpg", light:true},
-    {id:"xo-cinza", name:"Calça jeans XO cinza marmorizada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-cinza.jpg", light:true},
-    {id:"xo-grafite", name:"Calça jeans XO grafite estonada", brand:"XO", cat:"calcas", price:199.90, img:"img/jeans-grafite.jpg", light:true},
-    {id:"listrada-preta", name:"Camiseta listrada preta e branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/listrada-preta.jpg", light:true},
-    {id:"listrada-azul", name:"Camiseta listrada branca com azul claro", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-azul.jpg", light:true, pre:true},
-    {id:"listrada-vermelha", name:"Camiseta listrada branca com vermelho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-vermelha.jpg", light:true, pre:true, natal:true},
-    {id:"lisa-vermelha", name:"Camiseta vermelha lisa", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/lisa-vermelha.jpg", light:true, pre:true, natal:true},
-    {id:"listrada-royal", name:"Camiseta listrada branca com azul royal", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-royal.jpg", light:true, pre:true},
-    {id:"listrada-marinho", name:"Camiseta listrada branca e azul marinho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-marinho.jpg", light:true, pre:true},
-    {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
-    {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true}
-  ];
+  const PRODUCTS = window.PRODUCTS;
+  const TAMANHOS = ["P","M","G","GG"];
+
+  // O painel (/painel) guarda esgotado, preço, pré-venda e tamanhos que acabaram.
+  // Aqui a gente aplica isso por cima do catálogo, sem precisar publicar o site de novo.
+  function aplicarEstoque(dados){
+    PRODUCTS.forEach(p=>{
+      if(!p._orig) p._orig = {price:p.price, compare:p.compare, pre:!!p.pre, natal:!!p.natal, soldout:!!p.soldout};
+      const o = p._orig;
+      p.price=o.price; p.compare=o.compare; p.pre=o.pre; p.natal=o.natal; p.soldout=o.soldout; p.semTamanho=[];
+      const v = dados && dados[p.id];
+      if(!v) return;
+      if(v.soldout===true) p.soldout = true;
+      if(v.pre===true) p.pre = true;
+      if(v.pre===false){ p.pre = false; if(o.compare){ p.price = o.compare; p.compare = undefined; } }
+      if(typeof v.price==="number" && v.price>0) p.price = v.price;
+      if(Array.isArray(v.semTamanho)) p.semTamanho = v.semTamanho.filter(t=>TAMANHOS.includes(t));
+      p.natal = o.natal && p.pre;
+    });
+    // peça esgotada não pode ficar na sacola de quem já tinha posto
+    let mexeu = false;
+    for(const id in state.bag){ const p = byId(id); if(p && p.soldout){ delete state.bag[id]; mexeu = true; } }
+    if(mexeu) saveBag();
+  }
+  async function carregarEstoque(){
+    try{
+      const r = await fetch("/api/estoque", {cache:"no-store"});
+      if(!r.ok) return;
+      const dados = await r.json();
+      aplicarEstoque(dados);
+      renderFilters(); renderGrid(); renderBag();
+    }catch(e){}
+  }
   const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças"};
   const BRANDS = [...new Set(PRODUCTS.map(p=>p.brand))];
   const byId = id => PRODUCTS.find(p=>p.id===id);
@@ -734,7 +752,11 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     $("mImg").src = p.img; $("mImg").alt = p.name;
     $("mBrand").textContent = p.brand; $("mName").textContent = p.name;
     $("mPrice").innerHTML = `<strong>${brl(p.price)}</strong>${p.compare?`<s>${brl(p.compare)}</s>`:""}`;
-    const info = [p.natal?"Coleção de Natal · pré-venda, garanta a sua antes da chegada":(p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega"), p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", "Tamanho e caimento: a gente indica no WhatsApp"];
+    const faltam = p.semTamanho || [];
+    const tamInfo = p.soldout ? "Esgotada por enquanto · me chame no WhatsApp que eu aviso quando voltar"
+      : faltam.length ? `Tamanhos disponíveis: ${TAMANHOS.filter(t=>!faltam.includes(t)).join(", ")} · ${faltam.join(" e ")} esgotado${faltam.length>1?"s":""}`
+      : "Tamanho e caimento: a gente indica no WhatsApp";
+    const info = [p.natal?"Coleção de Natal · pré-venda, garanta a sua antes da chegada":(p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega"), p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", tamInfo];
     $("mInfo").innerHTML = info.map(t=>`<li>${esc(t)}</li>`).join("");
     $("mAdd").dataset.id = p.id; $("mAdd").disabled = !!p.soldout;
     $("mWa").href = wa(`Olá, LS Imports! Quero a ${p.name} (${brl(p.price)}). Tem no meu tamanho?`);
@@ -807,6 +829,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
 
   renderFilters(); renderGrid(); renderBag();
+  carregarEstoque();
 })();
 </script>
 

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel · LS Imports</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+  --bg:#0d0f0e; --card:#151917; --line:#263029; --line2:#36453b;
+  --ink:#eef2ef; --soft:#9aa8a0; --accent:#3dff3a; --accent-ink:#06120a;
+  --alert:#ff5a5a; --warn:#ffb020;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding:0 0 140px;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+header{position:sticky;top:0;z-index:20;background:rgba(13,15,14,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);padding:16px 0}
+header .wrap{display:flex;align-items:center;gap:12px}
+header b{font-size:17px;letter-spacing:.04em}
+header .tag{margin-left:auto;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+/* ----- entrada ----- */
+#entrar{max-width:380px;margin:18vh auto 0;padding:0 16px;text-align:center}
+#entrar h1{font-size:26px;letter-spacing:-.01em}
+#entrar p{color:var(--soft);font-size:14px;margin-top:8px}
+#pin{width:100%;margin-top:22px;padding:16px;font:600 26px/1 system-ui;letter-spacing:.5em;text-align:center;
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--radius);color:var(--ink)}
+#pin:focus{outline:2px solid var(--accent);outline-offset:2px}
+
+button{font:inherit;cursor:pointer;border:0;border-radius:12px}
+.btn{width:100%;margin-top:14px;padding:16px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.erro{margin-top:14px;color:var(--alert);font-size:14px;min-height:20px}
+
+/* ----- lista ----- */
+#app[hidden]{display:none}
+.aviso{margin:16px 0 0;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;
+  color:var(--soft);font-size:13px;line-height:1.45}
+.grupo{margin-top:26px}
+.grupo > h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:10px}
+
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;margin-bottom:10px;display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:start}
+.item.off{opacity:.62}
+.item img{width:62px;height:78px;object-fit:cover;border-radius:9px;background:#fff}
+.item h3{font-size:15px;font-weight:600;line-height:1.25}
+.item .marca{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:3px}
+
+.linha{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.linha .rot{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);min-width:72px}
+
+/* interruptor */
+.sw{position:relative;width:50px;height:29px;flex:0 0 auto}
+.sw input{position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.sw span{position:absolute;inset:0;background:var(--line2);border-radius:999px;transition:background .15s;pointer-events:none}
+.sw span::after{content:"";position:absolute;top:3px;left:3px;width:23px;height:23px;border-radius:50%;
+  background:#fff;transition:transform .15s}
+.sw input:checked + span{background:var(--accent)}
+.sw input:checked + span::after{transform:translateX(21px)}
+.sw input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+
+/* tamanhos */
+.tams{display:flex;gap:7px}
+.tam{padding:8px 0;width:46px;text-align:center;border-radius:9px;border:1px solid var(--line2);
+  background:transparent;color:var(--ink);font-size:13px;font-weight:600;transition:.12s}
+.tam[aria-pressed="true"]{background:var(--alert);border-color:var(--alert);color:#fff;text-decoration:line-through}
+
+/* preço */
+.preco{display:flex;align-items:center;gap:6px}
+.preco b{color:var(--soft);font-weight:400}
+.preco input{width:104px;padding:9px 10px;background:#0b0e0c;border:1px solid var(--line2);
+  border-radius:9px;color:var(--ink);font:600 15px system-ui}
+.preco input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.preco .de{font-size:12px;color:var(--soft)}
+.mudou{border-color:var(--warn) !important}
+
+/* barra de salvar */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(13,15,14,.96);
+  backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:14px 0 calc(14px + env(safe-area-inset-bottom))}
+.barra .wrap{display:flex;align-items:center;gap:12px}
+.barra .st{flex:1;font-size:13px;color:var(--soft);min-height:20px}
+.barra .st.ok{color:var(--accent)}
+.barra .st.bad{color:var(--alert)}
+.barra button{padding:14px 22px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.barra button[disabled]{opacity:.45;cursor:default}
+</style>
+</head>
+<body>
+
+<section id="entrar">
+  <h1>Painel da LS</h1>
+  <p>Só pra você. Digite o PIN.</p>
+  <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="PIN">
+  <button class="btn" id="btnEntrar">Entrar</button>
+  <div class="erro" id="erroPin"></div>
+</section>
+
+<div id="app" hidden>
+  <header><div class="wrap"><b>Painel da LS</b><span class="tag">Estoque</span></div></header>
+  <main class="wrap">
+    <p class="aviso">O que você mudar aqui aparece no site na hora, sem publicar nada.
+      Peça marcada como <b>esgotada</b> continua na página, com o selo e sem botão de comprar.
+      Ao desligar a <b>pré-venda</b>, o preço volta sozinho ao normal e o riscado some.</p>
+    <div id="lista"></div>
+  </main>
+  <div class="barra"><div class="wrap">
+    <span class="st" id="status"></span>
+    <button id="salvar" disabled>Salvar</button>
+  </div></div>
+</div>
+
+<script src="catalogo.js"></script>
+<script>
+(function(){
+  const TAMANHOS = ["P","M","G","GG"];
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const brl = v => v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças"};
+
+  let PIN = "";
+  let estado = {};      // o que está salvo hoje
+  let rascunho = {};    // o que está na tela
+
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const doItem = id => (rascunho[id] = rascunho[id] || {});
+  function limpaVazios(o){
+    const r = {};
+    for(const [id,v] of Object.entries(o)){
+      const e = {};
+      if(v.soldout===true) e.soldout = true;
+      if(v.pre===true || v.pre===false) e.pre = v.pre;
+      if(typeof v.price==="number") e.price = v.price;
+      if(Array.isArray(v.semTamanho) && v.semTamanho.length) e.semTamanho = v.semTamanho;
+      if(Object.keys(e).length) r[id] = e;
+    }
+    return r;
+  }
+  const mudou = () => JSON.stringify(limpaVazios(rascunho)) !== JSON.stringify(limpaVazios(estado));
+  function marcar(){
+    $("salvar").disabled = !mudou();
+    if(mudou()) setStatus("Alterações não salvas", "");
+    else setStatus("", "");
+  }
+  function setStatus(t, cls){ const s=$("status"); s.textContent=t; s.className="st "+(cls||""); }
+
+  // ---------- entrada ----------
+  async function entrar(){
+    const v = $("pin").value.trim();
+    if(!v){ $("erroPin").textContent = "Digite o PIN."; return; }
+    $("btnEntrar").disabled = true; $("erroPin").textContent = "Conferindo…";
+    PIN = v;
+    try{
+      const r = await fetch("/api/estoque", {cache:"no-store"});
+      estado = r.ok ? (await r.json()) || {} : {};
+    }catch(e){ estado = {}; }
+    // o PIN só é conferido de verdade no salvar; aqui a gente testa com um salvamento do que já existe
+    try{
+      const t = await fetch("/api/estoque", {
+        method:"POST",
+        headers:{"Content-Type":"application/json","X-Painel-Pin":PIN},
+        body: JSON.stringify(estado)
+      });
+      if(t.status === 401){
+        $("btnEntrar").disabled = false;
+        $("erroPin").textContent = "PIN incorreto.";
+        $("pin").value = ""; $("pin").focus();
+        return;
+      }
+      if(!t.ok) throw new Error("falha");
+    }catch(e){
+      $("btnEntrar").disabled = false;
+      $("erroPin").textContent = "Não consegui falar com o servidor. Tente de novo.";
+      return;
+    }
+    rascunho = clone(estado);
+    $("entrar").hidden = true;
+    $("app").hidden = false;
+    render();
+  }
+  $("btnEntrar").addEventListener("click", entrar);
+  $("pin").addEventListener("keydown", e=>{ if(e.key==="Enter") entrar(); });
+
+  // ---------- lista ----------
+  function itemHTML(p){
+    const v = rascunho[p.id] || {};
+    const pre = v.pre===undefined ? !!p.pre : v.pre;
+    const preco = v.price===undefined ? (pre ? p.price : (p.pre && p.compare ? p.compare : p.price)) : v.price;
+    const faltam = v.semTamanho || [];
+    const precoBase = pre ? p.price : (p.pre && p.compare ? p.compare : p.price);
+    return `
+    <div class="item${v.soldout?" off":""}" data-id="${esc(p.id)}">
+      <img src="${esc(p.img)}" alt="" loading="lazy">
+      <div>
+        <div class="marca">${esc(p.brand)}</div>
+        <h3>${esc(p.name)}</h3>
+
+        <div class="linha">
+          <span class="rot">Esgotada</span>
+          <label class="sw"><input type="checkbox" data-sold ${v.soldout?"checked":""} aria-label="Marcar ${esc(p.name)} como esgotada"><span></span></label>
+        </div>
+
+        <div class="linha">
+          <span class="rot">Pré-venda</span>
+          <label class="sw"><input type="checkbox" data-pre ${pre?"checked":""} aria-label="Pré-venda de ${esc(p.name)}"><span></span></label>
+        </div>
+
+        <div class="linha">
+          <span class="rot">Acabou</span>
+          <div class="tams">${TAMANHOS.map(t=>
+            `<button class="tam" data-tam="${t}" aria-pressed="${faltam.includes(t)}" aria-label="Tamanho ${t} ${faltam.includes(t)?"esgotado":"disponível"}">${t}</button>`
+          ).join("")}</div>
+        </div>
+
+        <div class="linha">
+          <span class="rot">Preço</span>
+          <span class="preco"><b>R$</b>
+            <input type="text" inputmode="decimal" data-preco value="${brl(preco)}" aria-label="Preço de ${esc(p.name)}"
+              class="${v.price!==undefined && v.price!==precoBase ? "mudou":""}">
+          </span>
+        </div>
+      </div>
+    </div>`;
+  }
+  function render(){
+    const grupos = Object.entries(CATS).map(([k,nome])=>{
+      const itens = PRODUCTS.filter(p=>p.cat===k);
+      if(!itens.length) return "";
+      return `<section class="grupo"><h2>${esc(nome)}</h2>${itens.map(itemHTML).join("")}</section>`;
+    }).join("");
+    $("lista").innerHTML = grupos;
+    marcar();
+  }
+
+  $("lista").addEventListener("change", e=>{
+    const item = e.target.closest(".item"); if(!item) return;
+    const id = item.dataset.id, o = doItem(id);
+    if(e.target.matches("[data-sold]")){
+      if(e.target.checked) o.soldout = true; else delete o.soldout;
+      item.classList.toggle("off", !!o.soldout);
+    }
+    if(e.target.matches("[data-pre]")){
+      const p = PRODUCTS.find(x=>x.id===id);
+      o.pre = e.target.checked;
+      if(o.pre === !!p.pre) delete o.pre;
+      delete o.price;              // o preço volta ao que casa com o novo estado
+      const novo = itemHTML(p);
+      item.outerHTML = novo;
+    }
+    marcar();
+  });
+
+  $("lista").addEventListener("click", e=>{
+    const b = e.target.closest("[data-tam]"); if(!b) return;
+    const item = b.closest(".item"), id = item.dataset.id, o = doItem(id);
+    const t = b.dataset.tam;
+    const atual = new Set(o.semTamanho || []);
+    if(atual.has(t)) atual.delete(t); else atual.add(t);
+    const lista = TAMANHOS.filter(x=>atual.has(x));
+    if(lista.length) o.semTamanho = lista; else delete o.semTamanho;
+    b.setAttribute("aria-pressed", atual.has(t));
+    marcar();
+  });
+
+  $("lista").addEventListener("input", e=>{
+    if(!e.target.matches("[data-preco]")) return;
+    const item = e.target.closest(".item"), id = item.dataset.id, o = doItem(id);
+    const p = PRODUCTS.find(x=>x.id===id);
+    const pre = o.pre===undefined ? !!p.pre : o.pre;
+    const base = pre ? p.price : (p.pre && p.compare ? p.compare : p.price);
+    const n = parseFloat(e.target.value.replace(/\./g,"").replace(",","."));
+    if(isFinite(n) && n>0 && Math.abs(n-base)>0.004){ o.price = Math.round(n*100)/100; e.target.classList.add("mudou"); }
+    else { delete o.price; e.target.classList.remove("mudou"); }
+    marcar();
+  });
+
+  // ---------- salvar ----------
+  $("salvar").addEventListener("click", async ()=>{
+    const dados = limpaVazios(rascunho);
+    $("salvar").disabled = true; setStatus("Salvando…","");
+    try{
+      const r = await fetch("/api/estoque", {
+        method:"POST",
+        headers:{"Content-Type":"application/json","X-Painel-Pin":PIN},
+        body: JSON.stringify(dados)
+      });
+      if(r.status === 401){ setStatus("PIN incorreto. Recarregue a página.","bad"); return; }
+      if(!r.ok) throw new Error("falha");
+      estado = clone(dados); rascunho = clone(dados);
+      setStatus("Salvo. O site já está atualizado.","ok");
+      setTimeout(()=>{ if(!mudou()) setStatus("",""); }, 4000);
+    }catch(e){
+      setStatus("Não deu pra salvar. Tente de novo.","bad");
+      $("salvar").disabled = false;
+    }
+  });
+
+  addEventListener("beforeunload", e=>{ if(mudou()){ e.preventDefault(); e.returnValue = ""; } });
+  $("pin").focus();
+})();
+</script>
+</body>
+</html>
