@@ -122,7 +122,8 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const brl = v => v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
-  const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças"};
+  const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças", tenis:"Tênis"};
+  const LOTE_TOTAL = (window.LOTE && window.LOTE.total) || 6;
 
   let PIN = "";
   let estado = {};      // o que está salvo hoje
@@ -133,6 +134,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
   function limpaVazios(o){
     const r = {};
     for(const [id,v] of Object.entries(o)){
+      if(id==="_lote"){ if(v && typeof v.reservados==="number") r._lote = {reservados:v.reservados}; continue; }
       const e = {};
       if(v.soldout===true) e.soldout = true;
       if(v.pre===true || v.pre===false) e.pre = v.pre;
@@ -206,6 +208,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
           <label class="sw"><input type="checkbox" data-sold ${v.soldout?"checked":""} aria-label="Marcar ${esc(p.name)} como esgotada"><span></span></label>
         </div>
 
+        ${p.cat==="tenis" ? "" : `
         <div class="linha">
           <span class="rot">Pré-venda</span>
           <label class="sw"><input type="checkbox" data-pre ${pre?"checked":""} aria-label="Pré-venda de ${esc(p.name)}"><span></span></label>
@@ -216,7 +219,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
           <div class="tams">${TAMANHOS.map(t=>
             `<button class="tam" data-tam="${t}" aria-pressed="${faltam.includes(t)}" aria-label="Tamanho ${t} ${faltam.includes(t)?"esgotado":"disponível"}">${t}</button>`
           ).join("")}</div>
-        </div>
+        </div>`}
 
         <div class="linha">
           <span class="rot">Preço</span>
@@ -228,13 +231,29 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
       </div>
     </div>`;
   }
+  function loteHTML(){
+    const n = (rascunho._lote && rascunho._lote.reservados) || 0;
+    return `<section class="grupo"><h2>Lote de tênis</h2>
+      <div class="item" data-lote>
+        <div></div>
+        <div>
+          <div class="marca">Aparece na página dos tênis</div>
+          <h3>Pares já reservados</h3>
+          <div class="linha">
+            <span class="rot">Reservados</span>
+            <div class="tams">${Array.from({length:LOTE_TOTAL+1},(_,i)=>
+              `<button class="tam" data-res="${i}" aria-pressed="${n===i}">${i}</button>`).join("")}</div>
+          </div>
+        </div>
+      </div></section>`;
+  }
   function render(){
     const grupos = Object.entries(CATS).map(([k,nome])=>{
       const itens = PRODUCTS.filter(p=>p.cat===k);
       if(!itens.length) return "";
       return `<section class="grupo"><h2>${esc(nome)}</h2>${itens.map(itemHTML).join("")}</section>`;
     }).join("");
-    $("lista").innerHTML = grupos;
+    $("lista").innerHTML = grupos + loteHTML();
     marcar();
   }
 
@@ -257,6 +276,13 @@ button{font:inherit;cursor:pointer;border:0;border-radius:12px}
   });
 
   $("lista").addEventListener("click", e=>{
+    const res = e.target.closest("[data-res]");
+    if(res){
+      const n = +res.dataset.res;
+      if(n>0) rascunho._lote = {reservados:n}; else delete rascunho._lote;
+      res.closest(".tams").querySelectorAll("[data-res]").forEach(x=>x.setAttribute("aria-pressed", +x.dataset.res===n));
+      marcar(); return;
+    }
     const b = e.target.closest("[data-tam]"); if(!b) return;
     const item = b.closest(".item"), id = item.dataset.id, o = doItem(id);
     const t = b.dataset.tam;

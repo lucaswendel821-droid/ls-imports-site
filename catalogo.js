@@ -15,5 +15,17 @@ window.PRODUCTS = [
     {id:"listrada-royal", name:"Camiseta listrada branca com azul royal", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-royal.jpg", light:true, pre:true},
     {id:"listrada-marinho", name:"Camiseta listrada branca e azul marinho", brand:"Celani", cat:"camisetas", price:79.90, compare:89.90, img:"img/listrada-marinho.jpg", light:true, pre:true},
     {id:"basica-branca", name:"Camiseta básica branca", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-branca.jpg", light:true},
-    {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true}
+    {id:"basica-preta", name:"Camiseta básica preta", brand:"LS Seleção", cat:"camisetas", price:89.90, img:"img/basica-preta.jpg", light:true},
+
+    // Tênis Court Borough. Vêm por lote de 6 pares (lote:true).
+    {id:"cb-branco", name:"Court Borough branco", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-branco.jpg", light:true, lote:true},
+    {id:"cb-preto", name:"Court Borough preto", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-preto.jpg", light:true, lote:true},
+    {id:"cb-cinza-marinho", name:"Court Borough cinza e marinho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-cinza-marinho.jpg", light:true, lote:true},
+    {id:"cb-azul-bebe", name:"Court Borough branco e azul bebê", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-azul-bebe.jpg", light:true, lote:true},
+    {id:"cb-marinho", name:"Court Borough branco e marinho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-marinho.jpg", light:true, lote:true},
+    {id:"cb-royal", name:"Court Borough azul royal", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-royal.jpg", light:true, lote:true},
+    {id:"cb-vermelho", name:"Court Borough vermelho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-vermelho.jpg", light:true, lote:true}
 ];
+
+// Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
+window.LOTE = {reservados: 0, total: 6};

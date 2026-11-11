@@ -182,6 +182,7 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .tag.pre{background:var(--accent);color:var(--accent-ink)}
 .tag.out{background:var(--line-2);color:var(--soft)}
 .tag.natal{background:#c8102e;color:#fff;letter-spacing:.07em}
+.tag.lote{background:#0e5c2f;color:#fff;letter-spacing:.07em}
 .card.soldout .card-media img{filter:grayscale(1) brightness(.55)}
 .quick{position:absolute;right:10px;bottom:10px;z-index:2;width:42px;height:42px;display:grid;place-items:center;background:var(--bg);color:var(--fg);border:1px solid var(--line-2);transition:background .2s,color .2s}
 .quick svg{width:19px;height:19px}
@@ -234,6 +235,12 @@ body.no-intro .hero-media img,body.no-intro .h1-line>span,body.no-intro .hero-su
 .facts strong{font:800 30px/1 var(--display)}
 .facts span{font-size:13px;color:var(--muted)}
 @media (min-width:900px){.order{grid-template-columns:1fr 1fr}.order-media{max-height:none;aspect-ratio:auto;min-height:480px}.order-copy{padding:56px}}
+/* placar do lote */
+.lote-bar{display:flex;gap:6px;margin:4px 0 10px}
+.lote-bar i{flex:1;height:10px;background:var(--line-2)}
+.lote-bar i.on{background:#0e5c2f}
+.facts span.lote-n{font:800 30px/1 var(--display);color:var(--fg)}
+.lote-txt{font-size:13px;color:var(--muted);margin-bottom:24px}
 
 /* dicas */
 .tips{display:grid;gap:28px}
@@ -429,7 +436,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
         <button class="cat duo rv" data-cat="camisetas"><img src="img/listrada-corpo.jpg" alt="Camiseta listrada preta e branca vestida" style="object-position:50% 35%"><img src="img/listrada-azul-corpo.jpg" alt="Camiseta listrada azul e branca vestida" style="object-position:50% 30%"><span class="cat-name">Camisetas<br>e blusas</span></button>
         <button class="cat rv" data-cat="moletons"><img src="img/trio-sentados.jpg" alt="Três amigos sentados na escada de jaqueta puffer, jaqueta de couro e moletom" style="object-position:30% 55%"><span class="cat-name">Moletons<br>e jaquetas</span></button>
         <button class="cat rv" data-cat="calcas"><img src="img/couro.jpg" alt="Calça jeans destroyed vestida" style="object-position:50% 88%"><span class="cat-name">Calças<br>e bermudas</span></button>
-        <a class="cat rv" href="#encomenda"><img src="img/tenis-court-azul.jpg" alt="Par de tênis azul bebê com sola branca alta" style="object-position:50% 50%"><span class="cat-name">Tênis<small>Sob encomenda</small></span></a>
+        <button class="cat rv" data-cat="tenis"><img src="img/tenis-cb-branco.jpg" alt="Par de tênis branco com sola branca" style="object-position:50% 50%"><span class="cat-name">Tênis<small>Por lote</small></span></button>
         <div class="cat soon rv"><span class="cat-name">Acessórios<small>Em breve</small></span></div>
       </div>
     </div>
@@ -480,15 +487,17 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   <section class="sec" id="encomenda" style="padding-top:0">
     <div class="wrap">
       <div class="order rv">
-        <div class="order-media"><img src="img/tenis-court-azul.jpg" alt="Par de tênis azul bebê com sola branca alta sobre concreto" loading="lazy"></div>
+        <div class="order-media"><img src="img/tenis-cb-royal.jpg" alt="Par de tênis azul royal com sola branca" loading="lazy"></div>
         <div class="order-copy">
-          <h2>Tênis sob encomenda</h2>
-          <p>Não achou o modelo que queria? Mande o nome e a numeração. A LS busca com o fornecedor e passa o valor antes de você fechar.</p>
+          <h2>Como funciona o lote</h2>
+          <p>Os tênis vêm por lote de 6 pares. É isso que segura o preço: o frete é dividido entre todos em vez de cair em cima de um par só. Você reserva o seu agora sem pagar nada, e quando o lote fecha eu confirmo contigo antes de pedir.</p>
           <div class="facts">
-            <div><strong>1 a 2 dias</strong><span>pra chegar em Andirá</span></div>
-            <div><strong>Brasil</strong><span>envio pelos Correios</span></div>
+            <div><span class="lote-n" id="loteN">0 de 6</span><span>pares reservados</span></div>
+            <div><strong>1 a 2 dias</strong><span>depois que o lote fecha</span></div>
           </div>
-          <a class="btn btn-primary" target="_blank" rel="noopener" id="orderBtn" href="#"><svg><use href="#i-wa"/></svg> Encomendar tênis</a>
+          <div class="lote-bar" id="loteBar"></div>
+          <p class="lote-txt" id="loteTxt">Quanto mais rápido fecha, mais rápido chega.</p>
+          <a class="btn btn-primary" target="_blank" rel="noopener" id="orderBtn" href="#"><svg><use href="#i-wa"/></svg> Tirar dúvida no WhatsApp</a>
         </div>
       </div>
     </div>
@@ -630,6 +639,10 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
       if(Array.isArray(v.semTamanho)) p.semTamanho = v.semTamanho.filter(t=>TAMANHOS.includes(t));
       p.natal = o.natal && p.pre;
     });
+    // placar do lote de tênis
+    const L = dados && dados._lote;
+    if(L && typeof L.reservados==="number") window.LOTE.reservados = Math.max(0, Math.min(window.LOTE.total, L.reservados|0));
+    renderLote();
     // peça esgotada não pode ficar na sacola de quem já tinha posto
     let mexeu = false;
     for(const id in state.bag){ const p = byId(id); if(p && p.soldout){ delete state.bag[id]; mexeu = true; } }
@@ -644,7 +657,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
       renderFilters(); renderGrid(); renderBag();
     }catch(e){}
   }
-  const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças"};
+  const CATS = {camisetas:"Camisetas", moletons:"Moletons e jaquetas", calcas:"Calças", tenis:"Tênis"};
   const BRANDS = [...new Set(PRODUCTS.map(p=>p.brand))];
   const byId = id => PRODUCTS.find(p=>p.id===id);
   const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -657,7 +670,20 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   // links de WhatsApp fixos
   document.querySelectorAll("[data-wa]").forEach(a=>a.href = wa(a.dataset.wa));
   $("vipBtn").href = wa("Olá, LS Imports! Quero garantir uma camiseta Celani na pré-venda por R$ 79,90. Cor (vermelho listrado, vermelho liso, azul royal, azul marinho ou azul claro): ___ Tamanho: ___");
-  $("orderBtn").href = wa("Olá, LS Imports! Quero encomendar um tênis. Modelo: ___ Numeração: ___");
+  $("orderBtn").href = wa("Olá, LS Imports! Tenho uma dúvida sobre o lote de tênis.");
+
+  // placar do lote de tênis
+  function renderLote(){
+    const L = window.LOTE; if(!L || !$("loteN")) return;
+    const faltam = L.total - L.reservados;
+    $("loteN").textContent = `${L.reservados} de ${L.total}`;
+    $("loteBar").innerHTML = Array.from({length:L.total},(_,i)=>`<i class="${i<L.reservados?"on":""}"></i>`).join("");
+    $("loteTxt").textContent = faltam<=0
+      ? "Lote fechado! Chega em 1 a 2 dias. Me chame que eu aviso do próximo."
+      : faltam===1
+        ? "Falta 1 par pra fechar o lote. Reserve o seu e ele já vem nesse."
+        : `Faltam ${faltam} pares pra fechar o lote. Quanto mais rápido fecha, mais rápido chega.`;
+  }
 
   // sacola salva só neste navegador
   try{ const saved = JSON.parse(localStorage.getItem("ls-bag")||"{}"); if(saved && typeof saved==="object") for(const k in saved){ if(byId(k) && saved[k]>0) state.bag[k] = Math.min(9, saved[k]|0); } }catch(e){}
@@ -685,6 +711,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   }
   function tagOf(p){
     if(p.soldout) return '<span class="tag out">Esgotado</span>';
+    if(p.lote) return '<span class="tag lote">Lote fechando</span>';
     if(p.natal) return '<span class="tag natal">🎄 Natal · Pré-venda</span>';
     if(p.pre) return '<span class="tag pre">Pré-venda</span>';
     if(p.compare) return '<span class="tag">Promoção</span>';
@@ -692,6 +719,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   }
   const cardOf = p => p.card || p.price;
   function noteOf(p){
+    if(p.lote) return `no Pix · ${brl(cardOf(p))} no cartão · preço do lote`;
     if(p.pre) return "Preço de pré-venda no Pix";
     if(p.card && p.card!==p.price) return `no Pix · ${brl(p.card)} no cartão em até 3x`;
     return "no Pix ou 3x sem juros";
@@ -756,10 +784,21 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
     const tamInfo = p.soldout ? "Esgotada por enquanto · me chame no WhatsApp que eu aviso quando voltar"
       : faltam.length ? `Tamanhos disponíveis: ${TAMANHOS.filter(t=>!faltam.includes(t)).join(", ")} · ${faltam.join(" e ")} esgotado${faltam.length>1?"s":""}`
       : "Tamanho e caimento: a gente indica no WhatsApp";
-    const info = [p.natal?"Coleção de Natal · pré-venda, garanta a sua antes da chegada":(p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega"), p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", tamInfo];
+    const info = p.lote
+      ? [`Vem no lote de ${window.LOTE.total} pares · ${window.LOTE.reservados} já reservado${window.LOTE.reservados===1?"":"s"}`,
+         "Reserve agora sem pagar nada. Quando o lote fecha, eu confirmo contigo e peço ao fornecedor",
+         "Chega em 1 a 2 dias depois que o lote fecha",
+         `Pix, débito ou dinheiro: ${brl(p.price)} · cartão em até 3x: ${brl(cardOf(p))}`,
+         "Linha nacional",
+         "Frete grátis em Andirá · Correios para todo o Brasil",
+         "Numeração: me diga no WhatsApp qual é a sua"]
+      : [p.natal?"Coleção de Natal · pré-venda, garanta a sua antes da chegada":(p.pre?"Pré-venda: garanta a sua antes da chegada":"Pronta entrega"), p.card&&p.card!==p.price?`Promoção no Pix. No cartão: ${brl(p.card)} em até 3x sem juros`:"Pix, débito, dinheiro ou crédito em até 3x sem juros", "Frete grátis em Andirá · Correios para todo o Brasil", tamInfo];
     $("mInfo").innerHTML = info.map(t=>`<li>${esc(t)}</li>`).join("");
     $("mAdd").dataset.id = p.id; $("mAdd").disabled = !!p.soldout;
-    $("mWa").href = wa(`Olá, LS Imports! Quero a ${p.name} (${brl(p.price)}). Tem no meu tamanho?`);
+    $("mAdd").lastChild.textContent = p.lote ? " Reservar no lote" : " Adicionar à sacola";
+    $("mWa").href = p.lote
+      ? wa(`Olá, LS Imports! Quero reservar o ${p.name} (${brl(p.price)} no Pix) no lote. Minha numeração: ___`)
+      : wa(`Olá, LS Imports! Quero a ${p.name} (${brl(p.price)}). Tem no meu tamanho?`);
     openLayer($("modal"));
   }
   let toastTimer;
@@ -828,7 +867,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding-block:56p
   const onScroll = ()=> waF.classList.toggle("away", scrollY < innerHeight*0.6);
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
 
-  renderFilters(); renderGrid(); renderBag();
+  renderFilters(); renderGrid(); renderBag(); renderLote();
   carregarEstoque();
 })();
 </script>

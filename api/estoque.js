@@ -29,6 +29,12 @@ function limpar(entrada) {
   if (!entrada || typeof entrada !== "object") return saida;
   for (const [id, v] of Object.entries(entrada)) {
     if (typeof id !== "string" || id.length > 60 || !v || typeof v !== "object") continue;
+    // placar do lote de tênis: { reservados: 0..12 }
+    if (id === "_lote") {
+      const n = Number(v.reservados);
+      if (isFinite(n) && n >= 0 && n <= 12) saida._lote = { reservados: Math.round(n) };
+      continue;
+    }
     const o = {};
     if (v.soldout === true) o.soldout = true;
     if (v.pre === true) o.pre = true;
