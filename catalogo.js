@@ -24,7 +24,14 @@ window.PRODUCTS = [
     {id:"cb-azul-bebe", name:"Court Borough branco e azul bebê", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-azul-bebe.jpg", light:true, lote:true},
     {id:"cb-marinho", name:"Court Borough branco e marinho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-marinho.jpg", light:true, lote:true},
     {id:"cb-royal", name:"Court Borough azul royal", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-royal.jpg", light:true, lote:true},
-    {id:"cb-vermelho", name:"Court Borough vermelho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-vermelho.jpg", light:true, lote:true}
+    {id:"cb-vermelho", name:"Court Borough vermelho", brand:"Court Borough", cat:"tenis", price:159.90, card:164.90, img:"img/tenis-cb-vermelho.jpg", light:true, lote:true},
+
+    // Tênis Grand Court. Categoria própria dentro da aba de tênis, fora do lote de 6.
+    {id:"gc-preto", name:"Grand Court preto", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-preto.jpg", light:true},
+    {id:"gc-royal", name:"Grand Court branco e azul royal", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-royal.jpg", light:true},
+    {id:"gc-marinho", name:"Grand Court azul marinho", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-marinho.jpg", light:true},
+    {id:"gc-azul-bebe", name:"Grand Court azul bebê", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-azul-bebe.jpg", light:true},
+    {id:"gc-branco-listras", name:"Grand Court branco com listras azuis", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-branco-listras.jpg", light:true}
 ];
 
 // Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
