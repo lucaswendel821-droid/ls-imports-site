@@ -31,7 +31,17 @@ window.PRODUCTS = [
     {id:"gc-royal", name:"Grand Court branco e azul royal", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-royal.jpg", light:true},
     {id:"gc-marinho", name:"Grand Court azul marinho", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-marinho.jpg", light:true},
     {id:"gc-azul-bebe", name:"Grand Court azul bebê", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-azul-bebe.jpg", light:true},
-    {id:"gc-branco-listras", name:"Grand Court branco com listras azuis", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-branco-listras.jpg", light:true}
+    {id:"gc-branco-listras", name:"Grand Court branco com listras azuis", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-branco-listras.jpg", light:true},
+
+    // Tênis Court Vision. Categoria própria dentro da aba de tênis, fora do lote de 6.
+    // Preço normal: R$229,90 no Pix / R$237,90 no cartão em 3x. Na Black, trocar price e pôr compare:229.90.
+    {id:"cv-branco", name:"Court Vision branco", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-branco.jpg", light:true},
+    {id:"cv-preto", name:"Court Vision preto", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-preto.jpg", light:true},
+    {id:"cv-branco-preto", name:"Court Vision branco com preto", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-branco-preto.jpg", light:true},
+    {id:"cv-marinho", name:"Court Vision azul marinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-marinho.jpg", light:true},
+    {id:"cv-vinho", name:"Court Vision vinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-vinho.jpg", light:true},
+    {id:"cv-creme", name:"Court Vision creme com marinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-creme.jpg", light:true},
+    {id:"cv-azul-bebe", name:"Court Vision azul bebê", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-azul-bebe.jpg", light:true}
 ];
 
 // Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
