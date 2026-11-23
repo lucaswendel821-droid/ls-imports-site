@@ -34,7 +34,7 @@ window.PRODUCTS = [
     {id:"gc-branco-listras", name:"Grand Court branco com listras azuis", brand:"Grand Court", cat:"tenis", price:199.90, card:206.90, img:"img/tenis-gc-branco-listras.jpg", light:true},
 
     // Tênis Court Vision. Categoria própria dentro da aba de tênis, fora do lote de 6.
-    // Preço normal: R$229,90 no Pix / R$237,90 no cartão em 3x. Na Black, trocar price e pôr compare:229.90.
+    // Preço normal: R$229,90 no Pix / R$237,90 no cartão em 3x.
     {id:"cv-branco", name:"Court Vision branco", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-branco.jpg", light:true},
     {id:"cv-preto", name:"Court Vision preto", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-preto.jpg", light:true},
     {id:"cv-branco-preto", name:"Court Vision branco com preto", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-branco-preto.jpg", light:true},
@@ -45,7 +45,6 @@ window.PRODUCTS = [
 
     // Tênis Court Vision Mid (cano alto, com velcro). Categoria própria dentro da aba de tênis.
     // Preço normal: R$229,90 no Pix / R$237,90 no cartão em 3x.
-    // Na Black: trocar price pra 199.90, card pra 206.90 e pôr compare:229.90 em todos os 5.
     {id:"cvm-preto-vermelho", name:"Court Vision Mid preto e vermelho", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-preto-vermelho.jpg", light:true},
     {id:"cvm-branco-royal", name:"Court Vision Mid branco e azul royal", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-branco-royal.jpg", light:true},
     {id:"cvm-branco-preto-vermelho", name:"Court Vision Mid branco, preto e vermelho", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-branco-preto-vermelho.jpg", light:true},
@@ -55,7 +54,6 @@ window.PRODUCTS = [
     // Tênis Balmain (linha importada premium). Categoria própria dentro da aba de tênis.
     // Custo: R$150 no atacado de 6 pares + R$9,17 de frete rateado = R$159,17 por par.
     // Preço normal: R$249,90 no Pix (lucro R$90,73) / R$257,90 no cartão em 3x.
-    // Na Black: trocar price pra 219.90, card pra 226.90 e pôr compare:249.90 nos 5 (lucro cai pra R$60,73).
     {id:"balmain-preto-branco", name:"Balmain preto com solado branco", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-preto-branco.jpg", light:true},
     {id:"balmain-dourado", name:"Balmain preto com B dourado", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-dourado.jpg", light:true},
     {id:"balmain-verde", name:"Balmain preto com verde limão", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-verde.jpg", light:true},
