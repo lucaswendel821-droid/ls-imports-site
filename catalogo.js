@@ -41,7 +41,16 @@ window.PRODUCTS = [
     {id:"cv-marinho", name:"Court Vision azul marinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-marinho.jpg", light:true},
     {id:"cv-vinho", name:"Court Vision vinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-vinho.jpg", light:true},
     {id:"cv-creme", name:"Court Vision creme com marinho", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-creme.jpg", light:true},
-    {id:"cv-azul-bebe", name:"Court Vision azul bebê", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-azul-bebe.jpg", light:true}
+    {id:"cv-azul-bebe", name:"Court Vision azul bebê", brand:"Court Vision", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cv-azul-bebe.jpg", light:true},
+
+    // Tênis Court Vision Mid (cano alto, com velcro). Categoria própria dentro da aba de tênis.
+    // Preço normal: R$229,90 no Pix / R$237,90 no cartão em 3x.
+    // Na Black: trocar price pra 199.90, card pra 206.90 e pôr compare:229.90 em todos os 5.
+    {id:"cvm-preto-vermelho", name:"Court Vision Mid preto e vermelho", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-preto-vermelho.jpg", light:true},
+    {id:"cvm-branco-royal", name:"Court Vision Mid branco e azul royal", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-branco-royal.jpg", light:true},
+    {id:"cvm-branco-preto-vermelho", name:"Court Vision Mid branco, preto e vermelho", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-branco-preto-vermelho.jpg", light:true},
+    {id:"cvm-royal-preto", name:"Court Vision Mid azul royal e preto", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-royal-preto.jpg", light:true},
+    {id:"cvm-cinza", name:"Court Vision Mid cinza e grafite", brand:"Court Vision Mid", cat:"tenis", price:229.90, card:237.90, img:"img/tenis-cvm-cinza.jpg", light:true}
 ];
 
 // Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
