@@ -61,10 +61,16 @@ window.PRODUCTS = [
     {id:"balmain-all-black", name:"Balmain couro todo preto", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-all-black.jpg", light:true},
 
     // Tênis Mizuno Prophecy 15 (topo da linha importada). Categoria própria dentro da aba de tênis.
-    // Custo: R$330 por par no lote.
+    // Cores normais: custo R$280 por par no lote.
+    // Preço normal: R$369,90 no Pix (lucro R$89,90) / R$381,90 no cartão em 3x.
+    {id:"mizuno-p15-all-black", name:"Mizuno Prophecy 15 all black", brand:"Mizuno Prophecy", cat:"tenis", price:369.90, card:381.90, img:"img/tenis-mizuno-p15-all-black.jpg", light:true},
+    {id:"mizuno-p15-preto-vermelho", name:"Mizuno Prophecy 15 preto e vermelho", brand:"Mizuno Prophecy", cat:"tenis", price:369.90, card:381.90, img:"img/tenis-mizuno-p15-preto-vermelho.jpg", light:true},
+    {id:"mizuno-p15-preto-dourado", name:"Mizuno Prophecy 15 preto e dourado", brand:"Mizuno Prophecy", cat:"tenis", price:369.90, card:381.90, img:"img/tenis-mizuno-p15-preto-dourado.jpg", light:true},
+
+    // Edição especial do Prophecy 15: custo R$330 por par no lote.
     // Preço normal: R$419,90 no Pix (lucro R$89,90) / R$433,90 no cartão em 3x.
-    {id:"mizuno-p15-branco-dourado", name:"Mizuno Prophecy 15 branco e dourado", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-branco-dourado.jpg", light:true},
-    {id:"mizuno-p15-preto-prata", name:"Mizuno Prophecy 15 preto e prata", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-preto-prata.jpg", light:true}
+    {id:"mizuno-p15-branco-dourado", name:"Mizuno Prophecy 15 branco e dourado (edição especial)", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-branco-dourado.jpg", light:true},
+    {id:"mizuno-p15-preto-prata", name:"Mizuno Prophecy 15 preto e prata (edição especial)", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-preto-prata.jpg", light:true}
 ];
 
 // Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
