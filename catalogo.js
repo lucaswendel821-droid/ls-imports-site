@@ -58,7 +58,13 @@ window.PRODUCTS = [
     {id:"balmain-dourado", name:"Balmain preto com B dourado", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-dourado.jpg", light:true},
     {id:"balmain-verde", name:"Balmain preto com verde limão", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-verde.jpg", light:true},
     {id:"balmain-nobuck", name:"Balmain nobuck preto monograma", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-nobuck.jpg", light:true},
-    {id:"balmain-all-black", name:"Balmain couro todo preto", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-all-black.jpg", light:true}
+    {id:"balmain-all-black", name:"Balmain couro todo preto", brand:"Balmain", cat:"tenis", price:249.90, card:257.90, img:"img/tenis-balmain-all-black.jpg", light:true},
+
+    // Tênis Mizuno Prophecy 15 (topo da linha importada). Categoria própria dentro da aba de tênis.
+    // Custo: R$330 por par no lote.
+    // Preço normal: R$419,90 no Pix (lucro R$89,90) / R$433,90 no cartão em 3x.
+    {id:"mizuno-p15-branco-dourado", name:"Mizuno Prophecy 15 branco e dourado", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-branco-dourado.jpg", light:true},
+    {id:"mizuno-p15-preto-prata", name:"Mizuno Prophecy 15 preto e prata", brand:"Mizuno Prophecy", cat:"tenis", price:419.90, card:433.90, img:"img/tenis-mizuno-p15-preto-prata.jpg", light:true}
 ];
 
 // Quantos pares já estão reservados no lote atual (0 a 6). O painel atualiza.
